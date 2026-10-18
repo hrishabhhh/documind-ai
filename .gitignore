@@ -1,0 +1,27 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# VS Code
+.vscode/
+
+# Next.js
+node_modules/
+.next/
+out/
+
+# Temporary uploads
+uploads/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
