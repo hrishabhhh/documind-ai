@@ -20,6 +20,9 @@ for index, result in enumerate(results, start=1):
     print(f"Page: {result['page_number']}")
     print(f"Similarity: {result['score']:.4f}")
     print(f"Text: {result['text'][:300]}")
+    print(f"Chunk ID: {result['chunk_id']}" )
 
-
-
+for chunk in chunks[22:25]:
+    print(f"\nChunk ID: {chunk['chunk_id']}")
+    print(f"Page: {chunk['page_number']}")
+    print(f"Text: {chunk['text'][:250]}")

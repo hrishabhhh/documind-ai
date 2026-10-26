@@ -44,6 +44,7 @@ class DocumentService:
 
             for index, chunk in enumerate(chunks):
                 all_chunks.append({
+                    "chunk_id": len(all_chunks),
                     "page_number": page["page_number"],
                     "chunk_index": index,
                     "text": chunk

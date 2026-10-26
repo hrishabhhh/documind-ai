@@ -47,6 +47,7 @@ class SearchService:
         for index in top_indices:
             chunk=self.chunks[index]
             results.append({
+                "chunk_id": chunk["chunk_id"],
                 "text": chunk["text"],
                 "page_number": chunk["page_number"],
                 "score": float(scores[index])
