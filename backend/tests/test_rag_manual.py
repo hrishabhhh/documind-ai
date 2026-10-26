@@ -13,5 +13,7 @@ search_service.load_chunks(chunks)
 rag_service = RAGService(search_service,gemini_service)
 results = rag_service.ask("What should I do on Tuesday?")
 
-print("Retrieved chunks:", len(results))
-print("Top page:", results[0]["page_number"])
+print(results[:1000])
+
+# print("Retrieved chunks:", len(results))
+# print("Top page:", results[0]["page_number"])
