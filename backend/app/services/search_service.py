@@ -54,3 +54,29 @@ class SearchService:
             })
             
         return results
+
+
+    def expand_results(self, results, window: int = 1):
+        expanded = []
+        seen_ids = set()
+
+        for result in results:
+            chunk_id = result['chunk_id']
+            source_page = result['page_number']
+
+            start = max(0, chunk_id - window)
+            end = min(len(self.chunks), chunk_id + window + 1)
+
+            for index in range(start,end):
+                chunk = self.chunks[index]
+
+                if chunk['page_number'] != source_page:
+                    continue
+                if chunk['chunk_id'] in seen_ids:
+                    continue
+
+                seen_ids.add(chunk['chunk_id'])
+                expanded.append(chunk)
+        
+        return sorted(expanded, key=lambda chunk: chunk['chunk_id'])
+

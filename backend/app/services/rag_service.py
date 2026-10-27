@@ -12,9 +12,23 @@ class RAGService:
             top_k=3
             )
 
+        filtered_results = [
+            result 
+            for result in results
+            if result['score'] >= 0.20
+        ]
+
+        if not filtered_results:
+            return "I couldn't find that information in the document."
+
+        expanded_results = self.search_service.expand_results(
+            filtered_results,
+            window=1
+        )
+
         context = ""
 
-        for result in results: 
+        for result in expanded_results: 
             context += f"Page {result['page_number']}: \n{result['text']}\n\n"
 
 
