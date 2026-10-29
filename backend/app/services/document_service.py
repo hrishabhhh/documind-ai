@@ -36,18 +36,50 @@ class DocumentService:
 
     def process_document(self, file_path:str):
         pages = self.extract_text(file_path)
-
+        page_sections = self.detect_sections(pages)
+      
         all_chunks = []
 
         for page in pages:
             chunks = self.chunk_text(page["text"])
-
+            section = page_sections.get(page["page_number"])
             for index, chunk in enumerate(chunks):
                 all_chunks.append({
                     "chunk_id": len(all_chunks),
                     "page_number": page["page_number"],
                     "chunk_index": index,
+                    "section": section,
                     "text": chunk
                 })
                 
         return all_chunks
+
+    def detect_sections(self, pages):
+
+        days = ['monday','tuesday','wednesday','thursday','friday','saturday']
+
+        page_sections = {}
+
+        for page in pages:
+            lines = page["text"].splitlines()
+
+            if not lines:
+                continue
+            heading = lines[0].strip().lower()
+
+            parts = heading.split(" /", 1)
+            day = parts[0]
+
+            if len(parts) == 2 and day in days:
+                page_sections[page['page_number']] = day
+
+            # for day in days:
+            #     matching_pages = find_document(service, day)
+
+            #     for page in matching_pages:
+            #         page_sections[page['page_number']] = day
+
+        return page_sections
+
+
+        
