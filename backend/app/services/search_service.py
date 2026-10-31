@@ -50,7 +50,8 @@ class SearchService:
                 "chunk_id": chunk["chunk_id"],
                 "text": chunk["text"],
                 "page_number": chunk["page_number"],
-                "score": float(scores[index])
+                "score": float(scores[index]),
+                "section": chunk.get("section")
             })
             
         return results
@@ -80,3 +81,10 @@ class SearchService:
         
         return sorted(expanded, key=lambda chunk: chunk['chunk_id'])
 
+    def get_chunks_by_section(self, section: str):
+        matching_chunks = []
+
+        for chunk in self.chunks:
+            if chunk.get("section") == section:
+                matching_chunks.append(chunk)
+        return matching_chunks

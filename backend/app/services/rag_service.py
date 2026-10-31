@@ -21,10 +21,19 @@ class RAGService:
         if not filtered_results:
             return "I couldn't find that information in the document."
 
-        expanded_results = self.search_service.expand_results(
+        expanded_results = []
+
+        best_match = filtered_results[0]
+
+        section = best_match.get("section")
+
+        if section: 
+            expanded_results = self.search_service.get_chunks_by_section(section)
+        else:
+            expanded_results = self.search_service.expand_results(
             filtered_results,
             window=1
-        )
+            )
 
         context = ""
 

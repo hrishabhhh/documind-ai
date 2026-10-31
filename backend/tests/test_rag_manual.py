@@ -15,5 +15,9 @@ results = rag_service.ask("What should I do on Tuesday?")
 
 print(results[:1000])
 
-# print("Retrieved chunks:", len(results))
-# print("Top page:", results[0]["page_number"])
+question = "What should I do on Tuesday?"
+
+answer = rag_service.ask(question)
+
+print("\nDocuMind AI Answer:\n")
+print(answer)
